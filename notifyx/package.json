@@ -1,0 +1,26 @@
+{
+  "name": "notifyx",
+  "version": "1.0.0",
+  "description": "NotifyX \u2014 multi-server YouTube video & livestream notifications for Discord, using a local JSON database.",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "migrate": "node scripts/migrate.js",
+    "deploy-commands": "node scripts/deploy-commands.js",
+    "invite": "node scripts/invite.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.0",
+    "dotenv": "^16.4.5",
+    "pino": "^9.5.0"
+  },
+  "optionalDependencies": {
+    "pino-pretty": "^11.3.0"
+  }
+}

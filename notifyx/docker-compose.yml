@@ -1,0 +1,32 @@
+# docker compose up -d --build
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: notifyx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: notifyx
+    volumes:
+      - notifyx-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notifyx -d notifyx"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  notifyx:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://notifyx:${POSTGRES_PASSWORD:-change-me}@postgres:5432/notifyx
+      DATABASE_SSL: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+
+volumes:
+  notifyx-db:

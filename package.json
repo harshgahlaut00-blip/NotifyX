@@ -1,0 +1,7 @@
+{
+  "name": "notifyx-host-wrapper",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd /home/container/notifyx && npm install"
+  }
+}
